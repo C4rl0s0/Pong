@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://cumb58pfew47m"]
+
+[ext_resource type="Script" uid="uid://cmj1f40mksnwd" path="res://paddle.gd" id="1_8w31r"]
+[ext_resource type="Script" uid="uid://d012g8lfx4gpg" path="res://ball.gd" id="2_4opyw"]
+[ext_resource type="Script" uid="uid://mwsgf21rrgc1" path="res://score.gd" id="3_pkvn5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pkvn5"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_8w31r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4opyw"]
+size = Vector2(10, 124)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4opyw"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4opyw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pkvn5"]
+size = Vector2(16, 16)
+
+[sub_resource type="SystemFont" id="SystemFont_pkvn5"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Paddle" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_pkvn5")
+script = ExtResource("1_8w31r")
+
+[node name="Sprite2D" type="Sprite2D" parent="Paddle"]
+position = Vector2(1124, 303.5)
+scale = Vector2(9.999965, 126.99998)
+texture = SubResource("CanvasTexture_8w31r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle"]
+position = Vector2(1124, 303)
+shape = SubResource("RectangleShape2D_4opyw")
+
+[node name="Border" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Border"]
+polygon = PackedVector2Array(1, 0, 2, 651, 1150, 653, 1150, 679, -25, 669, -17, -25, 1148, -25, 1148, 2)
+
+[node name="Ball" type="RigidBody2D" parent="."]
+position = Vector2(1068, 305)
+physics_material_override = SubResource("PhysicsMaterial_4opyw")
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 8
+script = ExtResource("2_4opyw")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+position = Vector2(-2.8014183e-06, -1.6331673e-05)
+scale = Vector2(16.000013, 15.999998)
+texture = SubResource("CanvasTexture_4opyw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("RectangleShape2D_pkvn5")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Ball"]
+
+[node name="Score" type="Label" parent="."]
+offset_left = 552.0
+offset_top = 56.0
+offset_right = 759.0
+offset_bottom = 233.0
+theme_override_fonts/font = SubResource("SystemFont_pkvn5")
+theme_override_font_sizes/font_size = 60
+script = ExtResource("3_pkvn5")
+
+[connection signal="body_shape_entered" from="Ball" to="Ball" method="_on_body_shape_entered"]
+[connection signal="screen_exited" from="Ball/VisibleOnScreenNotifier2D" to="Ball" method="_on_visible_on_screen_notifier_2d_screen_exited"]
