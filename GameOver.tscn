@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqub7d2wl2iki"]
+
+[ext_resource type="Script" uid="uid://bm7l03hi7aw4a" path="res://restart.gd" id="1_40baj"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 529.0
+offset_top = 210.0
+offset_right = 616.0
+offset_bottom = 233.0
+theme_override_font_sizes/font_size = 30
+text = "Game Over"
+
+[node name="Restart" type="Button" parent="CanvasLayer"]
+offset_left = 467.0
+offset_top = 255.0
+offset_right = 754.0
+offset_bottom = 319.0
+theme_override_font_sizes/font_size = 25
+text = "Recomeçar"
+script = ExtResource("1_40baj")
+
+[connection signal="pressed" from="CanvasLayer/Restart" to="CanvasLayer/Restart" method="_on_pressed"]
